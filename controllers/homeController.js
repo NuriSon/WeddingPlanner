@@ -1,5 +1,5 @@
 exports.sendReqVendors = (req, res) => {
-    let vend = req.params.url;
+    let vend = req.params.vendors;
     res.send(`This is the page for ${vend}`);
 };
 
