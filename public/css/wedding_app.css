@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaina");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 
 body {
   margin: 0;
   padding-top: 150px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
   color: #625a56;
 }
 
@@ -20,7 +21,6 @@ body {
 #title {
   color: #625a56;
   margin: 0;
-  font-family: "Baloo Bhaina";
   text-transform: uppercase;
 }
 
@@ -29,7 +29,7 @@ img {
 }
 
 a {
-  color: #333;
+  color: darkblue;
   text-decoration: none;
 }
 
