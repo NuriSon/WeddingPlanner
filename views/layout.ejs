@@ -10,29 +10,29 @@
 	<link rel="stylesheet" href="/css/wedding_app.css">
 </head>
 
-<body>
-	<div id="nav">
-		<div class="col-sm nav-align">
-			<h1 id="title">Wedding Planning App</h1>
-		</div>
-		<div class="col-sm nav-align">
-			<a href="/">
-				<span class="button">Home</span>
-			</a>
-			<a href="/venues">
-				<span class="button">Venues</span>
-			</a>
-			<a href="/vendors">
-				<span class="button">Vendors</span>
-			</a>
-			<a href="/contact">
-				<span class="button">Contact</span>
-			</a>
-		</div>
-	</div>
+<body class="p-3 m-0 border-0 bd-example">
+    
+    <!-- Example Code -->
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Wedding Planning App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/venues">Venues</a>
+            <a class="nav-link" href="/vendors">Vendors</a>
+            <a class="nav-link" href="/contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-	<%- body %>
-
-</body>
+    <%- body %>
+    
+  </body>
 
 </html>
