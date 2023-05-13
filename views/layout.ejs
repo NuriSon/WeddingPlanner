@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title></title>
-    <style>
-        .nav {
-            background-color: blue;
-            color: white;
-            padding: 10px;
-        }
+<html>
 
-        .footer {
-            background-color: gray;
-            color: white;
-            padding: 10px;
-        }
-    </style>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1">
+	<title>Wedding Planning</title>
+	<link rel="shortcut icon" type="image/png" href="/images/icon.png" />
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/wedding_app.css">
 </head>
+
 <body>
-    <div class="navbar"> NAVIGATION </div>
-    <div class="content">
-        <%- body %>
-    </div>
-    <div class="footerbar"> FOOTER </div>
+	<div id="nav">
+		<div class="col-sm nav-align">
+			<h1 id="title">Wedding Planning App</h1>
+		</div>
+		<div class="col-sm nav-align">
+			<a href="/">
+				<span class="button">Home</span>
+			</a>
+			<a href="/venues">
+				<span class="button">Venues</span>
+			</a>
+			<a href="/vendors">
+				<span class="button">Vendors</span>
+			</a>
+			<a href="/contact">
+				<span class="button">Contact</span>
+			</a>
+		</div>
+	</div>
+
+	<%- body %>
+
 </body>
+
 </html>

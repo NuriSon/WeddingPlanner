@@ -1,40 +1,32 @@
-const homeController = require("./controllers/homeController");
-const errorController = require("./controllers/errorController");
-
 const express = require("express"),
-layouts = require("express-ejs-layouts"),
-app = express();
+  app = express(),
+  homeController = require("./controllers/homeController"),
+  errorController = require("./controllers/errorController"),
+  layouts = require("express-ejs-layouts");
 
-app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");
+app.set("port", process.env.PORT || 3000);
+app.use(
+  express.urlencoded({
+    extended: false
+  })
+);
+app.use(express.json());
 app.use(layouts);
 app.use(express.static("public"));
 
-app.get("/", homeController.showIndex);
-app.get("/vendors", homeController.showVendors);
-app.get("/contact", homeController.showContact);
-app.post("/contact", homeController.submittedContact);
-
-app.use((req, res, next) => {
-    console.log(`request made to: ${req.url}`);
-    next();
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-app.use(
-    express.urlencoded({
-        extended: false
-    })
-);
-app.use(express.json());
+app.get("/venues", homeController.showVenues);
+app.get("/vendors", homeController.showVendors);
+app.get("/contact", homeController.showSignUp);
+app.post("/contact", homeController.postedSignUpForm);
 
-app.post("/", homeController.showData);
-
-// error handlers as middleware functions
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
 
 app.listen(app.get("port"), () => {
-    console.log(
-        `Server running at http://localhost:${app.get("port")}`
-    );
+  console.log(`Server running at http://localhost:${app.get("port")}`);
 });

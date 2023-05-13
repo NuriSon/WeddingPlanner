@@ -1,39 +1,49 @@
-exports.showIndex = (req, res) => {
-    res.render("index");
-}
-
-exports.showContact = (req, res) => {
-    res.render("contact");
-};
-
-// page after user submitted a contact form
-exports.submittedContact = (req, res) => {
-    res.render("thanks");
-};
-
-exports.showData = (req, res) => {
-    console.log(req.body);
-    console.log(req.query);
-    res.send("POST Successful!");
-};
-
-var vendorList = [
+var venues = [
     {
-        title: "Park",
-        cost: 10
+      title: "Venue1",
+      cost: 500
     },
     {
-        title: "Hotel",
-        cost: 30
+      title: "Venue2",
+      cost: 300
     },
     {
-        title: "Restaurant",
-        cost: 20
+      title: "Venue3",
+      cost: 800
     }
-];
+  ];
 
-exports.showVendors = (req, res) => {
-    res.render("vendors", {
-        offeredVendors: vendorList
+  var vendors = [
+    {
+      title: "Vendor1",
+      cost: 50
+    },
+    {
+      title: "Vendor2",
+      cost: 120
+    },
+    {
+      title: "Vendor3",
+      cost: 200
+    }
+  ];
+
+exports.showVenues = (req, res) => {
+    res.render("venues", {
+      offeredVenues: venues
     });
-};
+  };
+
+  exports.showVendors = (req, res) => {
+    res.render("vendors", {
+      offeredVendors: vendors
+    });
+  };
+  
+  exports.showSignUp = (req, res) => {
+    res.render("contact");
+  };
+  
+  exports.postedSignUpForm = (req, res) => {
+    res.render("thanks");
+  };

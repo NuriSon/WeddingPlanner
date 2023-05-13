@@ -1,6 +1,16 @@
-<% extends('layout') %>
-<h1>Our Vendors</h1>
-<% offeredVendors.forEach(vendor => { %>
-    <h5> <%= vendor.title %> </h5>
-    <span>€ <%= vendor.cost %> </span>
-<% }); %>
+<div class="container">
+    <div class="col-sm-6">
+      <img src="images/cat.jpg" alt="">
+    </div>
+    <div class="col-sm-6">
+      <h1 class="title">The best wedding vendors in your city!</h1>
+      <% offeredVendors.forEach(vendor => { %>
+      <h5>
+        <%= vendor.title %>
+      </h5>
+      <span>$
+        <%= vendor.cost %> </span>
+      <% }); %>
+    </div>
+  </div>
+  

@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="col-sm-6">
+    <img src="images/fruit.jpg" alt="">
+  </div>
+  <div class="col-sm-6">
+    <h1 class="title">The best wedding venues in your city!</h1>
+    <% offeredVenues.forEach(venue => { %>
+    <h5>
+      <%= venue.title %>
+    </h5>
+    <span>$
+      <%= venue.cost %> </span>
+    <% }); %>
+  </div>
+</div>
