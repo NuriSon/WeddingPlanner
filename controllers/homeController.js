@@ -43,6 +43,14 @@ exports.showVenues = (req, res) => {
   exports.showSignUp = (req, res) => {
     res.render("contact");
   };
+
+  exports.showBudgetTracker = (req, res) => {
+    res.render("budget");
+  };
+
+  exports.showGuestlistManager = (req, res) => {
+    res.render("guestlist");
+  };
   
   exports.postedSignUpForm = (req, res) => {
     res.render("thanks");
