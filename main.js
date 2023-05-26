@@ -2,6 +2,7 @@ const express = require("express"),
     app = express(),
     homeController = require("./controllers/homeController"),
     errorController = require("./controllers/errorController"),
+    contactsController = require("./controllers/contactsController"),
     layouts = require("express-ejs-layouts"),
     mongoose = require("mongoose"),
     Contact = require("./models/contact");
@@ -33,10 +34,17 @@ app.get("/", (req, res) => {
 
 app.get("/venues", homeController.showVenues);
 app.get("/vendors", homeController.showVendors);
-app.get("/contact", homeController.showSignUp);
-app.get("/budget", homeController.showBudgetTracker)
-app.get("/guestlist", homeController.showGuestlistManager)
-app.post("/contact", homeController.postedSignUpForm);
+app.get("/budget", homeController.showBudgetTracker);
+app.get("/guestlist", homeController.showGuestlistManager);
+app.get("/contact", contactsController.showContactPage);
+app.post("/contact", contactsController.saveContact);
+
+
+
+app.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
+    console.log(req.data);
+    res.render("contacts", {contacts: req.data});
+});
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);

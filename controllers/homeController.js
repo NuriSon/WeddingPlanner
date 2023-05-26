@@ -39,10 +39,6 @@ exports.showVenues = (req, res) => {
       offeredVendors: vendors
     });
   };
-  
-  exports.showSignUp = (req, res) => {
-    res.render("contact");
-  };
 
   exports.showBudgetTracker = (req, res) => {
     res.render("budget");
@@ -50,8 +46,4 @@ exports.showVenues = (req, res) => {
 
   exports.showGuestlistManager = (req, res) => {
     res.render("guestlist");
-  };
-  
-  exports.postedSignUpForm = (req, res) => {
-    res.render("thanks");
   };
