@@ -4,14 +4,17 @@ const express = require("express"),
     errorController = require("./controllers/errorController"),
     contactsController = require("./controllers/contactsController"),
     guestsController = require("./controllers/guestsController"),
+    usersController = require("./controllers/usersController"),
     layouts = require("express-ejs-layouts"),
     mongoose = require("mongoose"),
-    Contact = require("./models/contact");
+    Contact = require("./models/contact"),
+    User = require("./models/user");
 
 mongoose.connect(
     "mongodb://localhost:27017/wedding_db",
     { useNewUrlParser: true }
 );
+
 const db = mongoose.connection;
 
 db.once("open", () => {
@@ -40,6 +43,9 @@ app.get("/guestlist", guestsController.showGuestlistManager);
 app.get("/contact", contactsController.showContactPage);
 app.post("/contact", contactsController.saveContact);
 app.post("/guestlist/add", guestsController.addGuest);
+app.get("/users", usersController.addUser);
+
+
 
 
 
