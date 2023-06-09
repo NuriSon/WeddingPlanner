@@ -1,3 +1,5 @@
+const { route } = require("express/lib/application");
+
 const express = require("express"),
 	app = express(),
 	homeController = require("./controllers/homeController"),
@@ -7,9 +9,12 @@ const express = require("express"),
 	usersController = require("./controllers/usersController"),
 	layouts = require("express-ejs-layouts"),
 	mongoose = require("mongoose"),
-	Contact = require("./models/contact");
+	Contact = require("./models/contact"),
+	router = express.Router();
 
-mongoose.connect("mongodb://localhost:27017/wedding_db", {
+app.use("/", router);
+
+mongoose.connect("mongodb+srv://s0579282:hgLKwrCavRkboojX@weddingapp.al8c8xa.mongodb.net/", {
 	useNewUrlParser: true,
 });
 
@@ -26,24 +31,26 @@ app.use(
 		extended: false,
 	})
 );
-app.use(express.json());
-app.use(layouts);
-app.use(express.static("public"));
+// below is changed (früher is app.)
+router.use(express.json());
+router.use(layouts);
+router.use(express.static("public"));
 
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
 	res.render("index");
 });
+router.get("/venues", homeController.showVenues);
+router.get("/vendors", homeController.showVendors);
+router.get("/budget", homeController.showBudgetTracker);
+router.get("/guestlist", guestsController.showGuestlistManager);
+router.get("/contact", contactsController.showContactPage);
+router.post("/contact", contactsController.saveContact);
+router.post("/guestlist/add", guestsController.addGuest);
+router.get("/users", usersController.index, usersController.indexView);
+router.get("/users/new", usersController.new);
+router.post("/users/create", usersController.create, usersController.redirectView);
 
-app.get("/venues", homeController.showVenues);
-app.get("/vendors", homeController.showVendors);
-app.get("/budget", homeController.showBudgetTracker);
-app.get("/guestlist", guestsController.showGuestlistManager);
-app.get("/contact", contactsController.showContactPage);
-app.post("/contact", contactsController.saveContact);
-app.post("/guestlist/add", guestsController.addGuest);
-app.get("/users", usersController.index, usersController.indexView);
-
-app.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
+router.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
 	console.log(req.data);
 	res.render("contacts", { contacts: req.data });
 });
