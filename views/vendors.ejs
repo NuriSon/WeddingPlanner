@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="col-sm-6">
+      <img src="images/cat.jpg" alt="">
+    </div>
+    <div class="col-sm-6">
+      <h1 class="title">The best wedding vendors in your city!</h1>
+      <p>Please choose the type of vendor you want to see:</p>
+      <select name="vendor-type" id="vendor-type">
+        <option value="Photographer">Photographer</option>
+        <option value="Light & Sound">Light & Sound</option>
+        <option value="Stage Design">Stage Design</option>
+        <option value="Flowers">Flowers</option>
+        <option value="Car Rental">Car Rental</option>
+        <option value="Wedding Card">Wedding Card</option>
+      </select>
+      <% offeredVendors.forEach(vendor => { %>
+      <h5>
+        <%= vendor.title %>
+      </h5>
+      <span>$
+        <%= vendor.cost %> </span>
+      <% }); %>
+    </div>
+  </div>
+  

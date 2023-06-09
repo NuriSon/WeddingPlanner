@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="col-sm-6">
+    <img src="images/fruit.jpg" alt="">
+  </div>
+  <div class="col-sm-6">
+    <h1 class="title">The best wedding venues in your city!!</h1>
+    <p>Please select the city in which you wish to view the venues:</p>
+    <select name="city" id="city">
+      <option value="Berlin">Berlin</option>
+      <option value="Potsdam">Potsdam</option>
+      <option value="Hamburg">Hamburg</option>
+      <option value="Frankfurt">Frankfurt</option>
+      <option value="Munich">Munich</option>
+      <option value="Cologne">Cologne</option>
+    </select>
+    <% offeredVenues.forEach(venue => { %>
+    <h5>
+      <%= venue.title %>
+    </h5>
+    <span>$
+      <%= venue.cost %> </span>
+    <% }); %>
+  </div>
+</div>
