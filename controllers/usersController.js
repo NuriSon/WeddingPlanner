@@ -29,15 +29,20 @@ module.exports = {
     };
     User.create(userParams)
       .then((user) => {
-        res.locals.redirect = "/users";
-        res.locals.user = user;
-        next();
+        req.flash("success", `${user.fullName}'s account created successfully!`); 
+       res.locals.redirect = "/users"; 
+       res.locals.user = user; 
+       next();
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(`Error saving user: ${error.message}`);
-        next(error);
-      });
-  },
+       res.locals.redirect = "/users/new";
+       req.flash(
+       "error",
+       `Failed to create user account because: ➥${error.message}.`
+       );
+       next(); });
+       },
   redirectView: (req, res, next) => {
     let redirectPath = res.locals.redirect;
     if (redirectPath) res.redirect(redirectPath);
@@ -73,37 +78,47 @@ module.exports = {
   },
   update: (req, res, next) => {
     let userId = req.params.id,
-      userParams = {
-        name: {
-          first: req.body.first,
-          last: req.body.last,
-        },
-        email: req.body.email,
-        password: req.body.password,
-        zipCode: req.body.zipCode,
-      };
+    userParams = {
+      name: {
+        first: req.body.first,
+        last: req.body.last,
+      },
+      email: req.body.email,
+      password: req.body.password,
+      zipCode: req.body.zipCode,
+    };
     User.findByIdAndUpdate(userId, {
       $set: userParams,
     })
       .then((user) => {
+        req.flash("success", `${user.fullName}'s account updated successfully!`);
         res.locals.redirect = `/users/${userId}`;
         res.locals.user = user;
         next();
       })
       .catch((error) => {
         console.log(`Error updating user by ID: ${error.message}`);
-        next(error);
+        req.flash(
+          "error",
+          `Failed to update user account because: ${error.message}.`
+        );
+        next();
       });
   },
   delete: (req, res, next) => {
     let userId = req.params.id;
     User.findByIdAndRemove(userId)
       .then(() => {
+        req.flash("success", `User's account deleted successfully!`);
         res.locals.redirect = "/users";
         next();
       })
       .catch((error) => {
         console.log(`Error deleting user by ID: ${error.message}`);
+        req.flash(
+          "error",
+          `Failed to delete user account because: ${error.message}.`
+        );
         next();
       });
   },

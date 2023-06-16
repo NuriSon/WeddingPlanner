@@ -9,13 +9,10 @@ const express = require("express"),
   mongoose = require("mongoose"),
   Contact = require("./models/contact"),
   router = express.Router();
-
-const methodOverride = require("method-override");
-router.use(
-  methodOverride("_method", {
-    methods: ["POST", "GET"],
-  })
-);
+  expressSession = require("express-session"),
+  cookieParser = require("cookie-parser"),
+  connectFlash = require("connect-flash"),
+  methodOverride = require("method-override");
 
 mongoose.connect(
   "mongodb+srv://s0579282:hgLKwrCavRkboojX@weddingapp.al8c8xa.mongodb.net",
@@ -40,24 +37,60 @@ app.use(
 app.use(express.json());
 app.use(layouts);
 app.use(express.static("public"));
+
 app.use("/", router);
-app.get("/", (req, res) => {
+
+router.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/venues", homeController.showVenues);
-app.get("/vendors", homeController.showVendors);
-app.get("/budget", homeController.showBudgetTracker);
-app.get("/guestlist", guestsController.showGuestlistManager);
-app.get("/contact", contactsController.showContactPage);
-app.post("/contact", contactsController.saveContact);
-app.post("/guestlist/add", guestsController.addGuest);
-app.get("/users", usersController.index, usersController.indexView);
+router.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
+);
 
-app.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
+router.use(cookieParser("pa55c0de"));
+router.use(
+  expressSession({
+    secret: "pa55c0de",
+    cookie: {
+      maxAge: 4000000,
+    },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+router.use(connectFlash());
+
+router.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
+
+
+router.get("/venues", homeController.showVenues);
+router.get("/vendors", homeController.showVendors);
+router.get("/budget", homeController.showBudgetTracker);
+router.get("/guestlist", guestsController.showGuestlistManager);
+router.get("/contact", contactsController.showContactPage);
+router.post("/contact", contactsController.saveContact);
+router.post("/guestlist/add", guestsController.addGuest);
+router.get("/users", usersController.index, usersController.indexView);
+
+router.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
   console.log(req.data);
   res.render("contacts", { contacts: req.data });
 });
+
+router.get("/signup", (req, res) => {
+  res.render("users/new");
+});
+
+router.get("/signin", (req, res) => {
+  res.render("users/login");
+});
+
 
 router.get("/users/new", usersController.new);
 router.post(
@@ -75,9 +108,9 @@ router.put(
 );
 
 router.delete(
-	"/users/:id/delete",
-	usersController.delete,
-	usersController.redirectView
+  "/users/:id/delete",
+  usersController.delete,
+  usersController.redirectView
 );
 
 app.use(errorController.pageNotFoundError);
