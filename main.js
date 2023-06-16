@@ -13,6 +13,10 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
   methodOverride = require("method-override");
+  expressValidator = require('express-validator');
+
+
+
 
 mongoose.connect(
   "mongodb+srv://s0579282:hgLKwrCavRkboojX@weddingapp.al8c8xa.mongodb.net",
@@ -76,29 +80,18 @@ router.get("/guestlist", guestsController.showGuestlistManager);
 router.get("/contact", contactsController.showContactPage);
 router.post("/contact", contactsController.saveContact);
 router.post("/guestlist/add", guestsController.addGuest);
-router.get("/users", usersController.index, usersController.indexView);
+router.get("/signup", usersController.signup);
+router.get("/users/login", usersController.login);
+router.post("/users/login", usersController.authenticate, usersController.redirectView);
 
 router.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
   console.log(req.data);
   res.render("contacts", { contacts: req.data });
 });
 
-router.get("/signup", (req, res) => {
-  res.render("users/new");
-});
-
-router.get("/signin", (req, res) => {
-  res.render("users/login");
-});
-
-
 router.get("/users/new", usersController.new);
-router.post(
-  "/users/create",
-  usersController.create,
-  usersController.redirectView
-);
-router.get("/users/:id", usersController.show, usersController.showView);
+router.post("/users/create", usersController.validate, usersController.create, usersController.redirectView);
+router.post("/users/create", usersController.create, usersController.redirectView);
 
 router.get("/users/:id/edit", usersController.edit);
 router.put(
@@ -112,6 +105,9 @@ router.delete(
   usersController.delete,
   usersController.redirectView
 );
+
+router.get("/users/:id", usersController.show, usersController.showView);
+router.get("/users", usersController.index, usersController.indexView);
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
