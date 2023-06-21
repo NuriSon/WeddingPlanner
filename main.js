@@ -9,7 +9,29 @@ const express = require("express"),
 	mongoose = require("mongoose"),
 	Contact = require("./models/contact"),
 	router = express.Router(),
-	expressValidator = require("express-validator");
+	expressValidator = require("express-validator"),
+	passport = require("passport"),
+	expressSession = require("express-session"),
+	cookieParser = require("cookie-parser"),
+	User = require("./models/user"),
+	connectFlash = require("connect-flash");
+
+router.use(cookieParser("secretCuisine123"));
+router.use(
+	expressSession({
+		secret: "secretCuisine123",
+		cookie: {
+			maxAge: 4000000,
+		},
+		resave: false,
+		saveUninitialized: false,
+	})
+);
+router.use(passport.initialize());
+router.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 const methodOverride = require("method-override");
 router.use(
@@ -18,24 +40,12 @@ router.use(
 	})
 );
 
-const expressSession = require("express-session"),
-	cookieParser = require("cookie-parser"),
-	connectFlash = require("connect-flash");
-router.use(cookieParser("secret_passcode"));
-router.use(
-	expressSession({
-		secret: "secret_passcode",
-		cookie: {
-			maxAge: 4000000,
-		},
-		resave: false,
-		saveUninitialized: false,
-	})
-);
 router.use(connectFlash());
 
 router.use((req, res, next) => {
 	res.locals.flashMessages = req.flash();
+	res.locals.loggedIn = req.isAuthenticated();
+	res.locals.currentUser = req.user;
 	next();
 });
 
@@ -84,9 +94,16 @@ app.get("/contacts", contactsController.getAllContacts, (req, res, next) => {
 router.use(expressValidator());
 
 router.get("/users/login", usersController.login);
-router.post(
-	"/users/login",
-	usersController.authenticate,
+router.post("/users/login", usersController.authenticate);
+router.get(
+	"/users/logout",
+	usersController.logout,
+	usersController.redirectView
+);
+
+router.get(
+	"/users/logout",
+	usersController.logout,
 	usersController.redirectView
 );
 
