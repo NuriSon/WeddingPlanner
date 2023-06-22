@@ -138,11 +138,21 @@ module.exports = {
 	},
 
 	logout: (req, res, next) => {
-		//req.logout();
-		req.flash("success", "You have been logged out!");
-		res.locals.redirect = "/";
-		next();
+		req.logout((err) => {
+			if (err) {
+				// Handle any error that occurred during logout
+				console.error(err);
+				// Optionally, set a flash message for the error
+				req.flash("error", "An error occurred during logout.");
+			} else {
+				// Logout successful
+				req.flash("success", "You have been logged out!");
+			}
+			res.locals.redirect = "/";
+			next();
+		});
 	},
+	
 	/* 	authenticate: (req, res, next) => {
 		User.findOne({ email: req.body.email })
 			.then((user) => {
