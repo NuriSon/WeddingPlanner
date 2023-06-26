@@ -101,12 +101,6 @@ router.get(
 	usersController.redirectView
 );
 
-router.get(
-	"/users/logout",
-	usersController.logout,
-	usersController.redirectView
-);
-
 router.get("/users/new", usersController.new);
 router.post(
 	"/users/create",
