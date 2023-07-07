@@ -11,9 +11,9 @@ var venues = [
       title: "Venue3",
       cost: 800
     }
-  ];
+];
 
-  var vendors = [
+var vendors = [
     {
       title: "Vendor1",
       cost: 50
@@ -26,7 +26,7 @@ var venues = [
       title: "Vendor3",
       cost: 200
     }
-  ];
+];
 
 exports.showVenues = (req, res) => {
     res.render("venues", {
@@ -42,8 +42,4 @@ exports.showVenues = (req, res) => {
 
   exports.showBudgetTracker = (req, res) => {
     res.render("budget");
-  };
-
-  exports.showGuestlistManager = (req, res) => {
-    res.render("guestlist");
   };

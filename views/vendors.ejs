@@ -13,13 +13,33 @@
         <option value="Car Rental">Car Rental</option>
         <option value="Wedding Card">Wedding Card</option>
       </select>
-      <% offeredVendors.forEach(vendor => { %>
+      <br>
+      <% vendors.forEach(vendor => { %>
       <h5>
-        <%= vendor.title %>
+        <%= vendor.name %>
       </h5>
+      <p>
+        <%= vendor.type %>
+      </p>
+      <p>
+        <%= vendor.description %>
+      </p>
       <span>$
         <%= vendor.cost %> </span>
+      <hr>
       <% }); %>
     </div>
-  </div>
-  
+    <br>
+    <h2>Add a Vendor</h2>
+        <br>
+        <form action="/vendors/add" method="post">
+            <input type="text" name="name" placeholder="Vendor Name" required>
+            <input type="text" name="type" placeholder="Vendor Type" required>
+            <input type="text" name="description" placeholder="Description" required>
+            <input type="number" name="cost" placeholder="Cost" required>
+            <input type="submit" value="Add Vendor">
+        </form>
+    
+
+</div>
+

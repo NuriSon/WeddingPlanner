@@ -1,5 +1,6 @@
 const passport = require("passport");
 const User = require("../models/user");
+const token = process.env.TOKEN || "WedPlannerToken";
 
 module.exports = {
 	index: (req, res, next) => {
@@ -14,11 +15,15 @@ module.exports = {
 			});
 	},
 	indexView: (req, res) => {
-		res.render("users/index", {
-			flashMessages: {
-				success: "Loaded all users!",
-			},
-		});
+		if (req.query.format === "json") {
+		  res.json(res.locals.users);
+		} else {
+		  res.render("users/index", {
+				flashMessages: {
+					success: "Loaded all users!",
+				}
+			})		
+		}
 	},
 	new: (req, res) => {
 		res.render("users/new");
@@ -190,4 +195,9 @@ module.exports = {
 		successRedirect: "/",
 		successFlash: "Logged in!",
 	}),
+
+	verifyToken: (req, res, next) => {
+		if (req.query.apiToken === token) next();
+		else next(new Error("Invalid API token."));
+	},
 };

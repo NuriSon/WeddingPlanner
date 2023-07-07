@@ -1,41 +1,25 @@
 const mongoose = require("mongoose");
 const vendorSchema = mongoose.Schema({
-    vendorName: {
+    name: {
         type: String,
         required: true
     },
-    vendorType: {
+    type: {
         type: String,
         required: true
-    },
-    contact: {
-        email: {
-            type: String,
-            required: true
-        },
-        phone: {
-            type: String,
-            required: true
-        },
-        address: {
-            type: String,
-            required: true
-        },
-        zipCode: {
-            type: Number,
-            required: true,
-            min: [10000, "Zip code too short"],
-            max: 99999,
-          }
     },
     description: {
         type: [String],
+        required: true
+    },
+    cost: {
+        type: Number,
         required: true
     }
 });
 
 vendorSchema.methods.getInfo = function() {
-    return `Vendor: ${this.vendorName} | Type: ${this.vendorType}`;
-  };
+    return `Vendor: ${this.name} | Type: ${this.type}`;
+};
 
 module.exports = mongoose.model("Vendor", vendorSchema);
