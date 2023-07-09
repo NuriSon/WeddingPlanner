@@ -34,12 +34,6 @@ exports.showVenues = (req, res) => {
     });
   };
 
-  exports.showVendors = (req, res) => {
-    res.render("vendors", {
-      offeredVendors: vendors
-    });
-  };
-
   exports.showBudgetTracker = (req, res) => {
     res.render("budget");
   };

@@ -1,6 +1,7 @@
-const router = require("express").Router();
-const usersController = require("../controllers/usersController");
+const router = require("express").Router(),
+  vendorsController = require("../controllers/vendorsController");
 
-router.use(usersController.verifyToken);
+router.get("/vendors", vendorsController.showVendorlistManager, vendorsController.respondJSON); 
+router.use(vendorsController.errorJSON);
 
 module.exports = router;
