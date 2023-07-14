@@ -1,13 +1,7 @@
 const express = require("express"),
 	app = express(),
-	homeController = require("./controllers/homeController"),
-	errorController = require("./controllers/errorController"),
-	contactsController = require("./controllers/contactsController"),
-	guestsController = require("./controllers/guestsController"),
-	usersController = require("./controllers/usersController"),
 	layouts = require("express-ejs-layouts"),
 	mongoose = require("mongoose"),
-	Contact = require("./models/contact"),
 	router = require("./routes/index"), // requiring router 
 	expressValidator = require("express-validator"),
 	passport = require("passport"),
@@ -80,8 +74,16 @@ app.get("/", (req, res) => {
 
 app.use(expressValidator());
 
-app.listen(app.get("port"), () => {
-	console.log(`Server running at http://localhost:${app.get("port")}`);
-});
+const server = app.listen(app.get("port"), () => {
+	console.log(`Server running at http://localhost:${ app.get("port") }`); 
+}),
+io = require("socket.io")(server);
+
+const chatController = require("./controllers/chatController")(io);
+
+
+// app.listen(app.get("port"), () => {
+// 	console.log(`Server running at http://localhost:${app.get("port")}`);
+// });
 
 app.use("/", router);

@@ -8,5 +8,6 @@ router.get("/", (req, res) => {
 router.get("/venues", homeController.showVenues);
 //router.get("/vendors", homeController.showVendors);
 router.get("/budget", homeController.showBudgetTracker);
+router.get("/chat", homeController.chat);
 
 module.exports = router;

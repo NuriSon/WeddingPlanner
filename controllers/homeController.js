@@ -28,12 +28,16 @@ var vendors = [
     }
 ];
 
-exports.showVenues = (req, res) => {
+module.exports = {
+  showBudgetTracker: (req, res) => {
+    res.render("budget");
+  },
+  chat: (req, res) => {
+    res.render("chat");
+  },
+  showVenues: (req, res) => {
     res.render("venues", {
       offeredVenues: venues
     });
-  };
-
-  exports.showBudgetTracker = (req, res) => {
-    res.render("budget");
-  };
+  },
+};

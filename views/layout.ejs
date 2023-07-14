@@ -9,6 +9,7 @@
     <title>Wedding Planning</title>
     <link rel="icon" href="/images/logo.png" type="image/png" />
     <link rel="shortcut icon" type="image/png" href="/images/logo.png" />
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/weddingApp.js"></script>
@@ -39,7 +40,8 @@
             <a class="nav-link" href="/budget">Budget Tracker</a>
             <a class="nav-link" href="/guestlist">Guestlist Manager</a>
             <a class="nav-link" href="/contact">Contact</a>
-            <%- include('modals') %>
+            <a href="/chat" class="chat-icon">Chat</a>
+            <!-- <%- include('modals') %> -->
           </div>
         </div>
       </div>
