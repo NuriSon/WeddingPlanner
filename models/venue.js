@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
-const vendorSchema = mongoose.Schema({
-    vendorName: {
-        type: String,
-        required: true
-    },
-    vendorType: {
+const venueSchema = mongoose.Schema({
+    venueName: {
         type: String,
         required: true
     },
@@ -14,14 +10,17 @@ const vendorSchema = mongoose.Schema({
         required: true
     },
     contact: {
-        email: {
-            type: String,
-        },
         phone: {
             type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true
         },
         website: {
             type: String,
+            required: true
         },
         address: {
             type: String,
@@ -44,8 +43,8 @@ const vendorSchema = mongoose.Schema({
     }
 });
 
-vendorSchema.methods.getInfo = function () {
-    return `Vendor: ${this.vendorName} | Type: ${this.vendorType}`;
+venueSchema.methods.getInfo = function () {
+    return `Venue: ${this.title} | Cost: ${this.cost}`;
 };
 
-module.exports = mongoose.model("Vendor", vendorSchema);
+module.exports = mongoose.model("Venue", venueSchema);

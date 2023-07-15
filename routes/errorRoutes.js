@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
+const errorController = require('../controllers/errorController');
 const router = express.Router();
-const errorController = require("../controllers/errorController");
 
 router.use(errorController.pageNotFoundError);
 router.use(errorController.internalServerError);

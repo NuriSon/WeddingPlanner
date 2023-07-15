@@ -1,15 +1,29 @@
 const mongoose = require("mongoose");
+
 const guestSchema = mongoose.Schema({
-    // Adding validators
-    name: {
+    fullName: {
         type: String,
         required: true
     },
-    email: {
+    phone: {
         type: String,
+        required: true
+    },
+    guestCategory: {
+        type: String,
+        enum: ['Adult', 'Kid', 'Baby'],  // Enum to limit category to these values
+        required: true
+    },
+    confirmed: {
+        type: String,
+        enum: ['Confirmed', 'Not confirmed'], // Enum to limit confirmed to these values
+        required: true
+    },
+    user: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
         required: true,
-        lowercase: true,
-        unique: true
-    }
+    }    
 });
+
 module.exports = mongoose.model("Guest", guestSchema);
